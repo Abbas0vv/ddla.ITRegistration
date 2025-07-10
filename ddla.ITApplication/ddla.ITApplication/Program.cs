@@ -1,5 +1,7 @@
 using ddla.ITApplication.Database;
 using ddla.ITApplication.Database.Models.DomainModels.Account;
+using ddla.ITApplication.Services.Abstract;
+using ddla.ITApplication.Services.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +25,8 @@ public class Program
             .AddControllersWithViews()
             .AddRazorRuntimeCompilation();
         builder.Services.AddRazorPages();
+
+        builder.Services.AddScoped<IProductService, ProductService>();
 
         builder.Services.Configure<IdentityOptions>(options =>
         {

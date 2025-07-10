@@ -5,7 +5,8 @@ namespace ddla.ITApplication.Database.Models.DomainModels;
 public class Product
 {
     public int Id { get; set; }
-    public string InventarId { get; set; }
+    public string InventarId { get; set; }  
+    public string Recipient { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public int DepartmentId { get; set; }
@@ -18,6 +19,5 @@ public class Product
     public Unit Unit { get; set; }
     public DateTime DateofIssue { get; set; }
     public DateTime? DateofReceipt { get; set; }
-    public IFormFile? DocumentFile { get; set; }
 
 }

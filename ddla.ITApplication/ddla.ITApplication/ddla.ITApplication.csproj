@@ -19,12 +19,10 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\" />
-    <Folder Include="Database\Models\ViewModels\" />
     <Folder Include="Database\Repositories\Abstract\" />
     <Folder Include="Database\Repositories\Concrete\" />
-    <Folder Include="Services\Abstract\" />
-    <Folder Include="Services\Concrete\" />
     <Folder Include="Views\Account\" />
+    <Folder Include="wwwroot\assets\images\Uploads\Products\" />
   </ItemGroup>
 
 </Project>

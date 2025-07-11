@@ -16,6 +16,12 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
+        return View();
+    }
+
+
+    public async Task<IActionResult> Table()
+    {
         List<Product> model = await _productService.GetAllAsync();
 
         return View(model);

@@ -26,6 +26,7 @@ public class AccountController : Controller
         return RedirectToAction("Index", "Home");
     }
 
+
     [HttpGet]
     public async Task<IActionResult> Login()
     {
@@ -35,8 +36,15 @@ public class AccountController : Controller
     public async Task<IActionResult> Login(LoginViewModel model)
     {
         if (!ModelState.IsValid) return View(model);
-        await _userService.Login(model);
-        return RedirectToAction("Index", "Home");
+
+        bool isSuccess = await _userService.Login(model);
+        if (!isSuccess)
+        {
+            ModelState.AddModelError("", "Email və ya şifrə yanlışdır");
+            return View(model);
+        }
+
+        return RedirectToAction("Table", "Home");
     }
 
     [HttpGet]

@@ -44,8 +44,7 @@ public class Program
             options.Lockout.AllowedForNewUsers = true;
 
             // User settings.
-            options.User.AllowedUserNameCharacters =
-            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+            options.User.AllowedUserNameCharacters = null;
             options.User.RequireUniqueEmail = false;
         });
 

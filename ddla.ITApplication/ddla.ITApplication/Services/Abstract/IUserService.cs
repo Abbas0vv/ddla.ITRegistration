@@ -4,7 +4,7 @@ namespace ddla.ITApplication.Services.Abstract;
 public interface IUserService
 {
     Task Register(RegisterViewModel model);
-    Task Login(LoginViewModel model);
+    Task<bool> Login(LoginViewModel model);
     Task LogOut();
     Task CreateRole();
 }

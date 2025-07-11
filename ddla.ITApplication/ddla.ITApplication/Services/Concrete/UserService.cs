@@ -35,16 +35,17 @@ public class UserService : IUserService
         }
     }
 
-    public async Task Login(LoginViewModel model)
+    public async Task<bool> Login(LoginViewModel model)
     {
         var user = await _userManager.FindByEmailAsync(model.Email);
         if (user is not null)
         {
-            var result = await _userManager.CheckPasswordAsync(user, model.Password);
-            if (result)
-                await _signInManager.SignInAsync(user, true);
+            var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, true, lockoutOnFailure: false);
+            return result.Succeeded;
         }
+        return false;
     }
+
 
     public async Task LogOut()
     {
@@ -65,6 +66,7 @@ public class UserService : IUserService
         };
 
         var result = await _userManager.CreateAsync(user, model.Password);
+
         if (result.Succeeded)
         {
             if (count == 0)

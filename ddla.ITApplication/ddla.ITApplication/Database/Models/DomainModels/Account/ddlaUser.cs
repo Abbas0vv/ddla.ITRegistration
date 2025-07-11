@@ -7,7 +7,6 @@ public class ddlaUser : IdentityUser
     public string UserName { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public string FullName => $"{FirstName} {LastName}";
     public string? ProfilePictureUrl { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }

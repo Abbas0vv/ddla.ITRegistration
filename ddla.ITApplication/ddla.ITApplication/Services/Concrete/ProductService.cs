@@ -34,9 +34,11 @@ public class ProductService : IProductService
     }
     public async Task<Product> GetByIdAsync(int? id)
     {
-        return await _context.Products.FirstOrDefaultAsync(s => s.Id == id);
+        return await _context.Products
+            .Include(p => p.Department)
+            .Include(p => p.Unit)
+            .FirstOrDefaultAsync(s => s.Id == id);
     }
-
     public async Task<Product> GetByNameAsync(string name)
     {
         return await _context.Products.FirstOrDefaultAsync(s => s.Name == name);

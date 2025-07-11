@@ -5,7 +5,6 @@ using ddla.ITApplication.Helpers.Extentions;
 using ddla.ITApplication.Services.Abstract;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Data;
 
 namespace ddla.ITApplication.Services.Concrete;
 
@@ -15,7 +14,7 @@ public class UserService : IUserService
     private readonly SignInManager<ddlaUser> _signInManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly IWebHostEnvironment _webHostEnvironment;
-    private const string IMAGE_PATH = "assets/images/ProfilePictures/";
+    private const string IMAGE_PATH = "~/assets/images/Uploads/ProfilePictures/";
 
     public UserService(UserManager<ddlaUser> userManager, SignInManager<ddlaUser> signInManager, RoleManager<IdentityRole> roleManager, IWebHostEnvironment webHostEnvironment)
     {
@@ -62,7 +61,7 @@ public class UserService : IUserService
             LastName = model.LastName,
             UserName = model.UserName,
             Email = model.Email,
-            ProfilePictureUrl = model.ProfilePicture.CreateFile(_webHostEnvironment.WebRootPath,IMAGE_PATH)
+            ProfilePictureUrl = model.ProfilePicture.CreateFile(_webHostEnvironment.WebRootPath, IMAGE_PATH)
         };
 
         var result = await _userManager.CreateAsync(user, model.Password);

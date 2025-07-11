@@ -21,8 +21,8 @@
     <Folder Include="Areas\Admin\" />
     <Folder Include="Database\Repositories\Abstract\" />
     <Folder Include="Database\Repositories\Concrete\" />
-    <Folder Include="Views\Account\" />
-    <Folder Include="wwwroot\assets\images\ProfilePicture\" />
+    <Folder Include="wwwroot\assets\images\Uploads\Documents\" />
+    <Folder Include="wwwroot\assets\images\Uploads\ProfilePicture\" />
     <Folder Include="wwwroot\assets\images\Uploads\Products\" />
   </ItemGroup>
 

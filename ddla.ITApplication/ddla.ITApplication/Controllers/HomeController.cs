@@ -8,13 +8,9 @@ namespace ddla.ITApplication.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ddlaITAppDBContext _context;
     private readonly IProductService _productService;
-    private 
-
-    public HomeController(ddlaITAppDBContext context, IProductService productService)
+    public HomeController(IProductService productService)
     {
-        _context = context;
         _productService = productService;
     }
 
@@ -44,16 +40,19 @@ public class HomeController : Controller
     public async Task<IActionResult> Update(int? id)
     {
         var product = await _productService.GetByIdAsync(id);
-        if (id is null && product is null) return NotFound();
+        if (id is null || product is null) return NotFound();
 
         var model = new UpdateProductViewModel()
         {
+            Recipient = product.Recipient,
             Name = product.Name,
             Description = product.Description,
             Count = product.Count,
-            DepartmentName = product.Department.Name,
-            UnitName = product.Unit.Name,
+            DepartmentName = product.Department?.Name,
+            UnitName = product.Unit?.Name,
             DateofReceipt = product.DateofReceipt,
+            DocumentPath = product.FilePath,
+            ImagePath = product.ImageUrl
         };
 
         return View(model);

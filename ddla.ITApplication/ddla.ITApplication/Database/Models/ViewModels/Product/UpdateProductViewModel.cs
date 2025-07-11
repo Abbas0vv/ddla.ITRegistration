@@ -4,6 +4,11 @@ namespace ddla.ITApplication.Database.Models.ViewModels.Product;
 
 public class UpdateProductViewModel
 {
+    [Required(ErrorMessage = "Məhsulu təhvil alan mütləq olmalıdır")]
+    [Display(Name = "Məhsulu Təhvil Alan")]
+    [StringLength(100, ErrorMessage = "Məhsulu təhvil alan maksimum 100 simvol ola bilər")]
+    public string Recipient { get; set; }
+
     [Required(ErrorMessage = "Məhsul adı mütləq doldurulmalıdır")]
     [Display(Name = "Məhsul Adı")]
     [StringLength(100, ErrorMessage = "Məhsul adı maksimum 100 simvol ola bilər")]
@@ -30,6 +35,11 @@ public class UpdateProductViewModel
 
     [Display(Name = "Fayl")]
     public IFormFile? DocumentFile { get; set; }
+
+    [Display(Name = "Cari Sənəd")]
+    public string? DocumentPath { get; set; }
+    [Display(Name = "Cari Şəkil")]
+    public string? ImagePath { get; set; }
 
     [Display(Name = "Alınma Tarixi")]
     public DateTime? DateofReceipt { get; set; }

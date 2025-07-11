@@ -1,0 +1,20 @@
+﻿@model LoginViewModel
+
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <form method="post">      
+            <div class="mb-3">
+                <label asp-for="Email" for="exampleFormControlInput1" class="form-label">Email address</label>
+                <input asp-for="Email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="Your Email">
+                <span asp-validation-for="Email"></span>
+            </div>                    
+            <div class="mb-3">
+                <label asp-for="Password" for="exampleFormControlInput1" class="form-label">Password</label>
+                <input asp-for="Password" type="password" class="form-control" id="exampleFormControlInput1" placeholder="Your Password">
+                <span asp-validation-for="Password"></span>
+            </div>           
+            <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Go Back To Dashboard</a>
+            <button type="submit" class="btn btn-success">Login</button>
+        </form>
+    </div>
+</div>

@@ -8,6 +8,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="~/assets/edit_add.css">
     <link rel="stylesheet" href="~/assets/style.css">
+    <style>
+        .user-nav {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .user-nav .btn {
+                padding: 5px 15px;
+            }
+
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #4e73df;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <div class="sidebar">
@@ -15,12 +41,12 @@
             <h3>IT Qeydiyyat Sistemi</h3>
         </div>
         <ul class="sidebar-menu">
-            <li class ="active">
+            <li class="active">
                 <a href="#">
                     <i class="fas fa-tachometer-alt"></i> Dashboard
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="#">
                     <i class="fas fa-warehouse"></i> Warehouse
                 </a>
@@ -29,7 +55,22 @@
         </ul>
     </div>
     <div class="main-content">
-    @RenderBody()
+        <!-- User Navigation Area -->
+        <div class="user-nav">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="d-flex align-items-center">
+                    <div class="user-avatar me-2">
+                        @User.Identity.Name.Substring(0, 1).ToUpper()
+                    </div>
+                    <span>@User.Identity.Name</span>
+                    <a href="/Account/Logout" class="btn btn-outline-danger btn-sm ms-3">
+                        <i class="fas fa-sign-out-alt"></i> Çıxış
+                    </a>
+                </div>
+            }
+        </div>
+        @RenderBody()
     </div>
 </body>
 </html>

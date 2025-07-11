@@ -37,6 +37,11 @@ public class ProductService : IProductService
         return await _context.Products.FirstOrDefaultAsync(s => s.Id == id);
     }
 
+    public async Task<Product> GetByNameAsync(string name)
+    {
+        return await _context.Products.FirstOrDefaultAsync(s => s.Name == name);
+    }
+
     public async Task Insert(CreateProductViewModel model)
     {
         var product = new Product()
@@ -76,6 +81,27 @@ public class ProductService : IProductService
 
         FileExtention.RemoveFile(Path.Combine(_webHostEnvironment.WebRootPath, FOLDER_NAME, banner.ImageUrl));
         _context.Remove(banner);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task Update(int? id, UpdateProductViewModel model)
+    {
+        if (id is null) return;
+        var product = await GetByIdAsync(id);
+        var modelDepartmentId = GetByNameAsync(model.DepartmentName)?.Id ?? 0;
+        var modelUnitId = GetByNameAsync(model.UnitName)?.Id ?? 0;
+
+        product.Name = model.Name;
+        product.Description = model.Description;
+        product.Count = model.Count;
+        product.DepartmentId = modelDepartmentId;
+        product.UnitId = modelUnitId;
+        product.DateofReceipt = model.DateofReceipt;
+            
+        if (model.ImageFile is not null)
+            product.ImageUrl = model.ImageFile.UpdateFile(_webHostEnvironment.WebRootPath, FOLDER_NAME, product.ImageUrl);
+
+        _context.Products.Update(product);
         await _context.SaveChangesAsync();
     }
 }

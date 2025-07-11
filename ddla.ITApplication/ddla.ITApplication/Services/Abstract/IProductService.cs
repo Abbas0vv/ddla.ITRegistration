@@ -10,4 +10,5 @@ public interface IProductService
     Task<Product> GetByIdAsync(int? id);
     Task Insert(CreateProductViewModel model);
     Task Remove(int? id);
+    Task Update(int? id, UpdateProductViewModel model);
 }

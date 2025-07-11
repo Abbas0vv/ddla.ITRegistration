@@ -10,6 +10,26 @@
     <link rel="stylesheet" href="~/assets/style.css">
 </head>
 <body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3>IT Qeydiyyat Sistemi</h3>
+        </div>
+        <ul class="sidebar-menu">
+            <li class ="active">
+                <a href="#">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+            </li>
+            <li >
+                <a href="#">
+                    <i class="fas fa-warehouse"></i> Warehouse
+                </a>
+            </li>
+            <!-- Add more menu items as needed -->
+        </ul>
+    </div>
+    <div class="main-content">
     @RenderBody()
+    </div>
 </body>
 </html>

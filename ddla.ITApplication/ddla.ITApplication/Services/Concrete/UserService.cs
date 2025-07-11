@@ -15,7 +15,7 @@ public class UserService : IUserService
     private readonly SignInManager<ddlaUser> _signInManager;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly IWebHostEnvironment _webHostEnvironment;
-    private const string IMAGE_PATH = "images/ProfilePictures/";
+    private const string IMAGE_PATH = "assets/images/ProfilePictures/";
 
     public UserService(UserManager<ddlaUser> userManager, SignInManager<ddlaUser> signInManager, RoleManager<IdentityRole> roleManager, IWebHostEnvironment webHostEnvironment)
     {

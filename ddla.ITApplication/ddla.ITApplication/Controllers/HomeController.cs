@@ -1,6 +1,7 @@
 ﻿using ddla.ITApplication.Database;
 using ddla.ITApplication.Database.Models.DomainModels;
 using ddla.ITApplication.Database.Models.ViewModels.Product;
+using ddla.ITApplication.Helpers.Extentions;
 using ddla.ITApplication.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 namespace ddla.ITApplication.Controllers;
@@ -9,6 +10,7 @@ public class HomeController : Controller
 {
     private readonly ddlaITAppDBContext _context;
     private readonly IProductService _productService;
+    private 
 
     public HomeController(ddlaITAppDBContext context, IProductService productService)
     {
@@ -37,6 +39,34 @@ public class HomeController : Controller
         await _productService.Insert(model);
         return RedirectToAction(nameof(Index));
     }
+
+    [HttpGet]
+    public async Task<IActionResult> Update(int? id)
+    {
+        var product = await _productService.GetByIdAsync(id);
+        if (id is null && product is null) return NotFound();
+
+        var model = new UpdateProductViewModel()
+        {
+            Name = product.Name,
+            Description = product.Description,
+            Count = product.Count,
+            DepartmentName = product.Department.Name,
+            UnitName = product.Unit.Name,
+            DateofReceipt = product.DateofReceipt,
+        };
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Update(int? id, UpdateProductViewModel model)
+    {
+        if (!ModelState.IsValid) return View(model);
+        await _productService.Update(id, model);
+        return RedirectToAction(nameof(Index));
+    }
+
 
     [HttpGet]
     public async Task<IActionResult> Delete(int? id)

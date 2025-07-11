@@ -1,6 +1,4 @@
-﻿using static System.Formats.Asn1.AsnWriter;
-
-namespace ddla.ITApplication.Database.Models.DomainModels;
+﻿namespace ddla.ITApplication.Database.Models.DomainModels;
 
 public class Product
 {

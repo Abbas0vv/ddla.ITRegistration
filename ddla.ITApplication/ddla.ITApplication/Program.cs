@@ -27,6 +27,7 @@ public class Program
         builder.Services.AddRazorPages();
 
         builder.Services.AddScoped<IProductService, ProductService>();
+        builder.Services.AddScoped<IUserService, UserService>();
 
         builder.Services.Configure<IdentityOptions>(options =>
         {

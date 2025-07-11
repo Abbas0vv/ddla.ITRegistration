@@ -1,5 +1,5 @@
 ﻿using ddla.ITApplication.Database.Models.DomainModels;
-using ddla.ITApplication.Database.Models.ViewModels;
+using ddla.ITApplication.Database.Models.ViewModels.Product;
 
 namespace ddla.ITApplication.Services.Abstract;
 
@@ -9,4 +9,5 @@ public interface IProductService
     Task<List<Product>> GetSomeAsync(int value);
     Task<Product> GetByIdAsync(int? id);
     Task Insert(CreateProductViewModel model);
+    Task Remove(int? id);
 }

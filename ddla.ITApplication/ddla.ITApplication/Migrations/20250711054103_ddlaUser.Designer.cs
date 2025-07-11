@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ddla.ITApplication.Database;
 
@@ -11,9 +12,11 @@ using ddla.ITApplication.Database;
 namespace ddla.ITApplication.Migrations
 {
     [DbContext(typeof(ddlaITAppDBContext))]
-    partial class ddlaITAppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250711054103_ddlaUser")]
+    partial class ddlaUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -378,13 +381,13 @@ namespace ddla.ITApplication.Migrations
             modelBuilder.Entity("ddla.ITApplication.Database.Models.DomainModels.Product", b =>
                 {
                     b.HasOne("ddla.ITApplication.Database.Models.DomainModels.Department", "Department")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ddla.ITApplication.Database.Models.DomainModels.Unit", "Unit")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("UnitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -392,16 +395,6 @@ namespace ddla.ITApplication.Migrations
                     b.Navigation("Department");
 
                     b.Navigation("Unit");
-                });
-
-            modelBuilder.Entity("ddla.ITApplication.Database.Models.DomainModels.Department", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("ddla.ITApplication.Database.Models.DomainModels.Unit", b =>
-                {
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

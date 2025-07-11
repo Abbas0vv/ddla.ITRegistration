@@ -1,6 +1,6 @@
 ﻿using ddla.ITApplication.Database;
 using ddla.ITApplication.Database.Models.DomainModels;
-using ddla.ITApplication.Database.Models.ViewModels;
+using ddla.ITApplication.Database.Models.ViewModels.Product;
 using ddla.ITApplication.Helpers;
 using ddla.ITApplication.Helpers.Extentions;
 using ddla.ITApplication.Services.Abstract;
@@ -12,7 +12,7 @@ public class ProductService : IProductService
 {
     private readonly ddlaITAppDBContext _context;
     private readonly IWebHostEnvironment _webHostEnvironment;
-    private const string FOLDER_NAME = "Uploads/Products";
+    private const string FOLDER_NAME = "assets/images/Uploads/Products";
     public ProductService(ddlaITAppDBContext context, IWebHostEnvironment webHostEnvironment)
     {
         _context = context;
@@ -20,7 +20,11 @@ public class ProductService : IProductService
     }
     public async Task<List<Product>> GetAllAsync()
     {
-        return await _context.Products.OrderBy(p => p.Id).ToListAsync();
+        return await _context.Products
+            .Include(p => p.Department)
+            .Include(p => p.Unit)
+            .OrderBy(p => p.Id)
+            .ToListAsync();
     }
     public async Task<List<Product>> GetSomeAsync(int value)
     {
@@ -37,6 +41,7 @@ public class ProductService : IProductService
     {
         var product = new Product()
         {
+            Recipient = model.Recipient,
             Name = model.Name,
             Description = model.Description,
             DepartmentId = await _context.Departments
@@ -57,10 +62,20 @@ public class ProductService : IProductService
             DateofIssue = DateTime.Now,
             DateofReceipt = model.DateofReceipt,
             InventarId = IDGenerator.GenerateId(),
-            ImageUrl = model.ImageFile.CreateFile(_webHostEnvironment.WebRootPath, FOLDER_NAME)
+            ImageUrl = model.ImageFile.CreateImageFile(_webHostEnvironment.WebRootPath, FOLDER_NAME)
         };
 
         await _context.Products.AddAsync(product);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task Remove(int? id)
+    {
+        if (id is null) return;
+        var banner = await GetByIdAsync(id);
+
+        FileExtention.RemoveFile(Path.Combine(_webHostEnvironment.WebRootPath, FOLDER_NAME, banner.ImageUrl));
+        _context.Remove(banner);
         await _context.SaveChangesAsync();
     }
 }

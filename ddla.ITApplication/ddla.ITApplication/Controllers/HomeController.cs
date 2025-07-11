@@ -1,6 +1,6 @@
 ﻿using ddla.ITApplication.Database;
 using ddla.ITApplication.Database.Models.DomainModels;
-using ddla.ITApplication.Database.Models.ViewModels;
+using ddla.ITApplication.Database.Models.ViewModels.Product;
 using ddla.ITApplication.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 namespace ddla.ITApplication.Controllers;
@@ -23,6 +23,7 @@ public class HomeController : Controller
         return View(model);
     }
 
+    [HttpGet]
     public async Task<IActionResult> Create()
     {
         return View();
@@ -32,8 +33,15 @@ public class HomeController : Controller
     public async Task<IActionResult> Create(CreateProductViewModel model)
     {
         if (!ModelState.IsValid) return View(model);
-        
+
         await _productService.Insert(model);
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Delete(int? id)
+    {
+        await _productService.Remove(id);
         return RedirectToAction(nameof(Index));
     }
 }

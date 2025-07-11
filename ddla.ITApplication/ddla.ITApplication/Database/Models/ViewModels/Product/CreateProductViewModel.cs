@@ -1,10 +1,15 @@
 ﻿using ddla.ITApplication.Database.Models.DomainModels;
 using System.ComponentModel.DataAnnotations;
 
-namespace ddla.ITApplication.Database.Models.ViewModels;
+namespace ddla.ITApplication.Database.Models.ViewModels.Product;
 
 public class CreateProductViewModel
 {
+    [Required(ErrorMessage = "Məhsulu təhvil alan mütləq olmalıdır")]
+    [Display(Name = "Məhsulu Təhvil Alan")]
+    [StringLength(100, ErrorMessage = "Məhsulu təhvil alan maksimum 100 simvol ola bilər")]
+    public string Recipient { get; set; }
+
     [Required(ErrorMessage = "Məhsul adı mütləq doldurulmalıdır")]
     [Display(Name = "Məhsul Adı")]
     [StringLength(100, ErrorMessage = "Məhsul adı maksimum 100 simvol ola bilər")]

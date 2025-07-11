@@ -1,104 +1,95 @@
-﻿<div class="container">
+﻿@model CreateProductViewModel
+
+<div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <div class="form-container" style="background-color: rgb(38, 86, 148);">
-                <h1 class="page-title"><img src="~/assets/images/ddlaLogoWithWords.png" alt="ddlaLogo">Yeni qeydiyyat əlavə et</h1>
+                <h1 class="page-title">
+                    <img src="~/assets/images/ddlaLogoWithWords.png" alt="ddlaLogo" />
+                    Yeni qeydiyyat əlavə et
+                </h1>
 
-                <form id="addForm">
+                <form method="post" enctype="multipart/form-data">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="username" class="form-label">İstifadəçi adı</label>
-                                <input type="text" class="form-control" id="username" required placeholder="İstifadəçi adını daxil edin">
+                                <label asp-for="Recipient" class="form-label"></label>
+                                <input asp-for="Recipient" class="form-control" placeholder="Məhsulu təhvil alanın adını daxil edin" />
+                                <span asp-validation-for="Recipient" class="text-danger"></span>
                             </div>
 
                             <div class="mb-3">
-                                <label for="productName" class="form-label">Məhsul adı</label>
-                                <input type="text" class="form-control" id="productName" required placeholder="Məhsul adını daxil edin">
+                                <label asp-for="Name" class="form-label"></label>
+                                <input asp-for="Name" class="form-control" placeholder="Məhsul adını daxil edin" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
 
                             <div class="mb-3">
-                                <label for="productImage" class="form-label">Məhsul şəkli</label>
-                                <div class="file-input-container">
-                                    <label for="productImage" class="file-input-label">
-                                        <span class="file-input-text">Şəkil seçin...</span>
-                                        <span class="file-input-btn"><i class="fas fa-upload me-1"></i>Seçin</span>
-                                    </label>
-                                    <input type="file" class="d-none" id="productImage" accept="image/*">
-                                </div>
-                                <img id="imagePreview" src="#" alt="Şəkil önizləməsi" class="image-preview img-thumbnail mt-2">
+                                <label asp-for="Description" class="form-label"></label>
+                                <textarea asp-for="Description" class="form-control" rows="3" placeholder="Əlavə izahat yazın"></textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
 
                             <div class="mb-3">
-                                <label for="departmentId" class="form-label">Departament</label>
-                                <select class="form-select" id="departmentId" required>
-                                    <option value="" disabled selected>Departament seçin</option>
-                                    <option value="1">IT</option>
-                                    <option value="2">HR</option>
-                                    <option value="3">Maliyyə</option>
-                                    <option value="4">Nəzarət</option>
-                                    <option value="5">Liman Əməliyyatları</option>
-                                    <option value="6">Gəmiçilik</option>
+                                <label asp-for="DepartmentName" class="form-label"></label>
+                                <select asp-for="DepartmentName" class="form-select">
+                                    <option disabled selected>Departament seçin</option>
+                                    <option value="IT">IT</option>
+                                    <option value="HR">HR</option>
+                                    <option value="Maliyyə">Maliyyə</option>
+                                    <option value="Nəzarət">Nəzarət</option>
+                                    <option value="Liman Əməliyyatları">Liman Əməliyyatları</option>
+                                    <option value="Gəmiçilik">Gəmiçilik</option>
                                 </select>
+                                <span asp-validation-for="DepartmentName" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="UnitName" class="form-label"></label>
+                                <select asp-for="UnitName" class="form-select">
+                                    <option disabled selected>Şöbə seçin</option>
+                                    <option value="İnkişaf">İnkişaf</option>
+                                    <option value="Dəstək">Dəstək</option>
+                                    <option value="İdarəetmə">İdarəetmə</option>
+                                    <option value="Gömrük">Gömrük</option>
+                                    <option value="Logistika">Logistika</option>
+                                </select>
+                                <span asp-validation-for="UnitName" class="text-danger"></span>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="shobeId" class="form-label">Şöbə</label>
-                                <select class="form-select" id="shobeId" required>
-                                    <option value="" disabled selected>Şöbə seçin</option>
-                                    <option value="1">İnkişaf</option>
-                                    <option value="2">Dəstək</option>
-                                    <option value="3">İdarəetmə</option>
-                                    <option value="4">Gömrük</option>
-                                    <option value="5">Logistika</option>
-                                </select>
+                                <label asp-for="Count" class="form-label"></label>
+                                <input asp-for="Count" class="form-control" placeholder="Məhsul sayını daxil edin" />
+                                <span asp-validation-for="Count" class="text-danger"></span>
                             </div>
 
                             <div class="mb-3">
-                                <label for="count" class="form-label">Sayı</label>
-                                <input type="number" class="form-control" id="count" required min="1" placeholder="Məhsul sayını daxil edin">
+                                <label asp-for="ImageFile" class="form-label"></label>
+                                <input asp-for="ImageFile" type="file" class="form-control" accept="image/*" />
+                                <span asp-validation-for="ImageFile" class="text-danger"></span>
                             </div>
 
                             <div class="mb-3">
-                                <label for="description" class="form-label">İzahat</label>
-                                <textarea class="form-control" id="description" rows="3" placeholder="Əlavə izahat yazın"></textarea>
-                            </div>
-
-                            <div class="row g-2">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="verilmeDateTime" class="form-label">Verilmə tarixi</label>
-                                        <input type="datetime-local" class="form-control" id="verilmeDateTime" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="almaDateTime" class="form-label">Alınma tarixi</label>
-                                        <input type="datetime-local" class="form-control" id="almaDateTime">
-                                    </div>
-                                </div>
+                                <label asp-for="DocumentFile" class="form-label"></label>
+                                <input asp-for="DocumentFile" type="file" class="form-control" />
+                                <small class="text-muted mt-1 d-block">İstənilən fayl tipi (max 5MB)</small>
+                                <span asp-validation-for="DocumentFile" class="text-danger"></span>
                             </div>
 
                             <div class="mb-3">
-                                <label for="blobFile" class="form-label">Sənəd fayl (max 5MB)</label>
-                                <div class="file-input-container">
-                                    <label for="blobFile" class="file-input-label">
-                                        <span class="file-input-text">Fayl seçin...</span>
-                                        <span class="file-input-btn"><i class="fas fa-paperclip me-1"></i>Seçin</span>
-                                    </label>
-                                    <input type="file" class="d-none" id="blobFile">
-                                </div>
-                                <small class="text-muted mt-1 d-block">İstənilən fayl tipi qəbul edilir (maksimum 5MB)</small>
+                                <label asp-for="DateofReceipt" class="form-label"></label>
+                                <input asp-for="DateofReceipt" type="datetime-local" class="form-control" />
+                                <span asp-validation-for="DateofReceipt" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
 
                     <div class="d-flex justify-content-end mt-4">
-                        <button type="button" class="btn btn-outline-secondary me-2" style="background-color: rgb(213 72 72); color: white;">
+                        <a class="btn btn-outline-secondary me-2" style="background-color: rgb(213 72 72); color: white;">
                             <i class="fas fa-times me-1"></i>Bağla
-                        </button>
+                        </a>
                         <button type="submit" class="btn btn-primary" style="background-color: rgb(64, 126, 208)">
                             <i class="fas fa-save me-1"></i>Yadda saxla
                         </button>

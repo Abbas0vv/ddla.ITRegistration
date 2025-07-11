@@ -57,9 +57,18 @@
     <div class="main-content">
         <!-- User Navigation Area -->
         <div class="user-nav">
-            <p>IsAuthenticated: @(User.Identity?.IsAuthenticated.ToString() ?? "null")</p>
-            <p>UserName: @(User.Identity?.Name ?? "anonymous")</p>
-
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="d-flex align-items-center">
+                    <div class="user-avatar me-2">
+                        @User.Identity.Name.Substring(0, 1).ToUpper()
+                    </div>
+                    <span>@User.Identity.Name</span>
+                    <a asp-action="LogOut" asp-controller="Account" class="btn btn-outline-danger btn-sm ms-3">
+                        <i class="fas fa-sign-out-alt"></i> Çıxış
+                    </a>
+                </div>
+            }
         </div>
         @RenderBody()
     </div>

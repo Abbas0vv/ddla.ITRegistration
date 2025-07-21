@@ -39,7 +39,7 @@ public class HomeController : Controller
         if (!ModelState.IsValid) return View(model);
 
         await _productService.Insert(model);
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(Table));
     }
 
     [HttpGet]
@@ -69,7 +69,7 @@ public class HomeController : Controller
     {
         if (!ModelState.IsValid) return View(model);
         await _productService.Update(id, model);
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(Table));
     }
 
 
@@ -77,6 +77,6 @@ public class HomeController : Controller
     public async Task<IActionResult> Delete(int? id)
     {
         await _productService.Remove(id);
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction(nameof(Table));
     }
 }

@@ -1,6 +1,7 @@
 ﻿using ddla.ITApplication.Database;
 using ddla.ITApplication.Database.Models.DomainModels;
 using ddla.ITApplication.Database.Models.ViewModels.Product;
+using ddla.ITApplication.Database.Models.ViewModels.Warehouse;
 using ddla.ITApplication.Helpers;
 using ddla.ITApplication.Helpers.Extentions;
 using ddla.ITApplication.Services.Abstract;
@@ -8,12 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ddla.ITApplication.Services.Concrete;
 
-public class ProductService : IProductService
+public class StockService : IStockService
 {
     private readonly ddlaITAppDBContext _context;
     private readonly IWebHostEnvironment _webHostEnvironment;
     private const string FOLDER_NAME = "assets/images/Uploads/Products";
-    public ProductService(ddlaITAppDBContext context, IWebHostEnvironment webHostEnvironment)
+    public StockService(ddlaITAppDBContext context, IWebHostEnvironment webHostEnvironment)
     {
         _context = context;
         _webHostEnvironment = webHostEnvironment;
@@ -41,10 +42,11 @@ public class ProductService : IProductService
     }
     public async Task<Product> GetByNameAsync(string name)
     {
-        return await _context.Products.FirstOrDefaultAsync(s => s.Name == name);
+        string filteredName = name.ToLower().Trim();
+        return await _context.Products.FirstOrDefaultAsync(s => s.Name.ToLower() == filteredName);
     }
 
-    public async Task Insert(CreateProductViewModel model)
+    public async Task Insert(CreateStockViewModel model)
     {
         var product = new Product()
         {
@@ -86,7 +88,7 @@ public class ProductService : IProductService
         await _context.SaveChangesAsync();
     }
 
-    public async Task Update(int? id, UpdateProductViewModel model)
+    public async Task Update(int? id, UpdateStockViewModel model)
     {
         if (id is null) return;
         var product = await GetByIdAsync(id);
@@ -99,7 +101,7 @@ public class ProductService : IProductService
         product.DepartmentId = modelDepartmentId;
         product.UnitId = modelUnitId;
         product.DateofReceipt = model.DateofReceipt;
-            
+
         if (model.ImageFile is not null)
             product.ImageUrl = model.ImageFile.UpdateFile(_webHostEnvironment.WebRootPath, FOLDER_NAME, product.ImageUrl);
 

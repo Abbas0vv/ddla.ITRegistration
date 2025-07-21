@@ -1,7 +1,5 @@
-﻿using ddla.ITApplication.Database;
-using ddla.ITApplication.Database.Models.DomainModels;
+﻿using ddla.ITApplication.Database.Models.DomainModels;
 using ddla.ITApplication.Database.Models.ViewModels.Product;
-using ddla.ITApplication.Helpers.Extentions;
 using ddla.ITApplication.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 namespace ddla.ITApplication.Controllers;
@@ -53,7 +51,7 @@ public class HomeController : Controller
             Recipient = product.Recipient,
             Name = product.Name,
             Description = product.Description,
-            Count = product.Count,
+            Count = product.InUseCount,
             DepartmentName = product.Department?.Name,
             UnitName = product.Unit?.Name,
             DateofReceipt = product.DateofReceipt,

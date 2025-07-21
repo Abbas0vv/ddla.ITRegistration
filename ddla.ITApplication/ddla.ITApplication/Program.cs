@@ -28,6 +28,7 @@ public class Program
 
         builder.Services.AddScoped<IProductService, ProductService>();
         builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IStockService, StockService>();
 
         builder.Services.Configure<IdentityOptions>(options =>
         {

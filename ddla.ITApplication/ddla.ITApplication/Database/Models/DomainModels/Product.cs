@@ -10,7 +10,9 @@ public class Product
     public int DepartmentId { get; set; }
     public string ImageUrl { get; set; }
     public int UnitId{ get; set; }
-    public int Count { get; set; }
+    public int AvailableCount => TotalCount - InUseCount;
+    public int TotalCount { get; set; }
+    public int InUseCount { get; set; } = 0;
     public string? FilePath { get; set; }
 
     public Department Department { get; set; }

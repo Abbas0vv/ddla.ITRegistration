@@ -10,10 +10,39 @@
             <small>Dövlət Dəniz və Liman Agentliyi</small>
         </div>
     </div>
-    <a asp-action="Create" class="btn btn-primary mb-3">Əlavə et</a>
+
+    <div class="d-flex justify-content-between mb-3">
+        <a asp-action="Create" class="btn btn-primary">Əlavə et</a>
+        <div class="main-search">
+            <div class="input-group">
+                <input type="text" id="globalSearch" class="form-control" placeholder="Axtarış...">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" id="clearGlobalSearch">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="table-responsive">
         <table class="table table-striped table-bordered">
             <thead>
+                <tr class="column-search-row">
+                    <th></th>
+                    <th><input type="text" class="form-control column-search" data-column="1" placeholder="İnventar ID"></th>
+                    <th><input type="text" class="form-control column-search" data-column="2" placeholder="Təhvil alan"></th>
+                    <th><input type="text" class="form-control column-search" data-column="3" placeholder="Məhsul adı"></th>
+                    <th></th>
+                    <th><input type="text" class="form-control column-search" data-column="5" placeholder="Departament"></th>
+                    <th><input type="text" class="form-control column-search" data-column="6" placeholder="Şöbə"></th>
+                    <th><input type="text" class="form-control column-search" data-column="7" placeholder="Sayı"></th>
+                    <th><input type="text" class="form-control column-search" data-column="8" placeholder="Təsvir"></th>
+                    <th><input type="text" class="form-control column-search" data-column="9" placeholder="Verilmə tarixi"></th>
+                    <th><input type="text" class="form-control column-search" data-column="10" placeholder="Alınma tarixi"></th>
+                    <th></th>
+                    <th></th>
+                </tr>
                 <tr>
                     <th>#</th>
                     <th>İnventar ID</th>
@@ -31,12 +60,10 @@
                 </tr>
             </thead>
             <tbody id="itemsTable">
-                <!-- Data will be loaded here -->
-                <tr>
-                    @{
-                        int counter = 1;
-                        foreach (var item in Model)
-                        {
+                @{
+                    int counter = 1;
+                    foreach (var item in Model)
+                    {
                         <tr scope="row">
                             <td>@counter</td>
                             <td>@item.InventarId</td>
@@ -88,3 +115,43 @@
         </table>
     </div>
 </div>
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const inputs = document.querySelectorAll(".column-search");
+            const table = document.getElementById("itemsTable");
+
+            inputs.forEach((input, index) => {
+                input.addEventListener("input", function () {
+                    const searchValues = Array.from(inputs).map(i => i.value.toLowerCase());
+
+                    Array.from(table.rows).forEach(row => {
+                        let visible = true;
+                        for (let i = 0; i < searchValues.length; i++) {
+                            const cellText = row.cells[i]?.innerText.toLowerCase() || "";
+                            if (searchValues[i] && !cellText.includes(searchValues[i])) {
+                                visible = false;
+                                break;
+                            }
+                        }
+                        row.style.display = visible ? "" : "none";
+                    });
+                });
+            });
+
+            document.getElementById("clearGlobalSearch").addEventListener("click", () => {
+                document.getElementById("globalSearch").value = "";
+                inputs.forEach(input => input.value = "");
+                Array.from(table.rows).forEach(row => row.style.display = "");
+            });
+
+            document.getElementById("globalSearch").addEventListener("input", function () {
+                const value = this.value.toLowerCase();
+                Array.from(table.rows).forEach(row => {
+                    const text = row.innerText.toLowerCase();
+                    row.style.display = text.includes(value) ? "" : "none";
+                });
+            });
+        });
+    </script>
+}
